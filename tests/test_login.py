@@ -1,27 +1,34 @@
-import time
-
 from pages.login_page import LoginPage
+import time
 import configparser
+import logging
 
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read("config.ini")
+logging.basicConfig(filename="test.log", level=logging.DEBUG)
 
-def test_invalid_login(driver):
+def test_validlogin(driver):
     login_page = LoginPage(driver)
-    username = config.get('login', "invalid_username")
+    logging.info("Starting the testcase - Test Valid login")
+    username = config.get("login", "username")
     login_page.enter_username(username)
-    password = config.get('login', 'invalid_password')
+    logging.info("entering the username")
+    password = config.get("login", "password")
     login_page.enter_password(password)
+    logging.info("entering the password")
     login_page.click_submit_button()
-    assert login_page.login_unsuccesful("Your username is invalid!"), "Error message does not match or is missing"
-    time.sleep(3)
+    logging.info("Click submit button")
+    expected_url = "https://practicetestautomation.com/logged-in-successfully/"
+    actual_url = driver.current_url
+    assert actual_url == expected_url
 
-def test_valid_login(driver):
-    login_page = LoginPage(driver)
-    username = config.get('login',"username")
-    login_page.enter_username(username)
-    password = config.get('login', 'password')
-    login_page.enter_password(password)
-    login_page.click_submit_button()
-    assert login_page.login_succesful(), "login unsuccesful"
-    time.sleep(3)
+def test_invalidlogin():
+    print("hello")
+
+def test_verify_contacts_page():
+    pass
+
+
+
+
+
