@@ -24,6 +24,7 @@ def test_validlogin(driver):
 
 def test_invalidlogin():
     print("hello")
+    print("hello")
 
 def test_verify_contacts_page():
     pass
